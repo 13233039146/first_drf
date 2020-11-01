@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from dangdang.models import Book, Author, Press
 
-
+# 多对多
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
@@ -16,14 +16,14 @@ class PublishSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    publish = PublishSerializer()
-    # 多对多需要制定many=True
-    authors = AuthorSerializer(many=True)
+    # publish = PublishSerializer()
+    # 多对多需要指定many=True
+    # authors = AuthorSerializer(many=True)
     class Meta:
         model = Book
         # 自定义字段只能出现在序列化
         # 默认序列化和反序列化都参与
-        fields = ('book_name', 'price', 'authors', 'publish', 'pic')
+        fields = ('book_name', 'price', 'authors')
 
         extra_kwargs = {
             "book_name": {
@@ -35,16 +35,16 @@ class BookSerializer(serializers.ModelSerializer):
                 }
             },
 
-            'authors': {
-                'write_only': True
-            },
-            'publish': {
-                'write_only': True
-            },
-
-            'pic': {
-                'read_only': True
-            }
+            # 'authors': {
+            #     'write_only': True
+            # },
+            # 'publish': {
+            #     'write_only': True
+            # },
+            #
+            # 'pic': {
+            #     'read_only': True
+            # }
 
         }
 

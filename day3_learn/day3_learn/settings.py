@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dangdang',
+    'view_set',
 ]
 
 MIDDLEWARE = [
@@ -125,5 +126,5 @@ MEDIA_URL = "media/"
 
 # DRF的全局配置
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'dangdang.exceptions.exception_handler',
+    'EXCEPTION_HANDLER': 'exceptions.exception_handler',
 }

@@ -1,11 +1,13 @@
+
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from rest_framework.generics import GenericAPIView
+from rest_framework import generics
+from rest_framework import mixins
 from dangdang.models import Book
 from dangdang.serializer import BookSerializer
-
-
+from rest_framework import viewsets
 class BookAPIView(APIView):
     def get(self, request, *args, **kwargs):
 
@@ -120,3 +122,8 @@ class BookAPIView(APIView):
             "message": '修改成功',
             "results": BookSerializer(book_obj).data
         })
+
+class BookApiView_mixin(generics.CreateAPIView):
+    lookup_field = 'id'
+    serializer_class = BookSerializer
+    queryset = Book.objects.filter(is_delete=False)
