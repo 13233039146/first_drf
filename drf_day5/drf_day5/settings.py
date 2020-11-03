@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
+import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'demo',
+    'token_app',
     'rest_framework',
 ]
 
@@ -140,4 +141,16 @@ REST_FRAMEWORK = {
         # 配置频率
         'whj': '3/m',
     }
+}
+JWT_AUTH = {
+    # 通过用户信息来生成载荷
+    'JWT_PAYLOAD_HANDLER':
+        'rest_framework_jwt.utils.jwt_payload_handler',
+    # 通过载荷来生成token
+    'JWT_ENCODE_HANDLER':
+        'rest_framework_jwt.utils.jwt_encode_handler',
+    # 指定token的过期时间
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+    # 指定token携带信息的前缀
+    'JWT_AUTH_HEADER_PREFIX': 'auth',
 }
